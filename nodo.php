@@ -37,7 +37,7 @@
     <div class="row">
         <div>
             <table class="table">
-                <thead class="thead-dark">
+                <thead class="thead-light">
                     <tr>
                         <th scope="col">Caudal</th>
                         <th scope="col">Fecha</th>
@@ -60,15 +60,10 @@
     $resp = json_decode($respuesta);   
     $result = $resp -> results;
 
-    if($var == "Arritmia" ){
+    if($var == "alertaph" ){
         $j = $result[0];
         $valor = $j -> value;
         echo "<p id='a1'> $valor </p>" ;
-        echo "<script src='./nodo.js'></script>";
-    }elseif($var =="AlertaGlucosa"){
-        $j = $result[0];
-        $valor = $j -> value;
-        echo "<p id='a2'> $valor </p>" ;
         echo "<script src='./nodo.js'></script>";
     }else{
         for ($i=0; $i<10; $i++){
@@ -90,7 +85,7 @@
 
         <div>
             <table class="table">
-                <thead class="thead-dark">
+                <thead class="thead-light">
                     <tr>
                         <th scope="col">Proximidad</th>
                         <th scope="col">Fecha</th>
@@ -107,7 +102,7 @@
 
         <div>
             <table class="table">
-                <thead class="thead-dark">
+                <thead class="thead-light">
                     <tr>
                         <th scope="col">PH</th>
                         <th scope="col">Fecha</th>
