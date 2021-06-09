@@ -20,6 +20,7 @@
 <body>
     <?php
  function llamarAPI($nodo,$var,$token){
+     $cont= 1;
     $url_rest = "https://things.ubidots.com/api/v1.6/devices/$nodo/$var/values?token=$token";//verificar 
     date_default_timezone_set('America/Bogota');
     $curl = curl_init($url_rest);
@@ -34,11 +35,12 @@
     $resp = json_decode($respuesta);   
     $result = $resp -> results;
 
-    if($var == "alertaph" ){
+    if($var == "alertacaudal" ){
         $j = $result[0];
         $valor = $j -> value;
-        echo "<p id='a1'> $valor </p>" ;
-        echo "<script src='./nodo.js'></script>";
+        echo "<p id='a$cont'> $valor </p>" ;
+        $cont= $cont +1;
+        
     }else{
         for ($i=0; $i<10; $i++){
             $j = $result[$i];
@@ -67,7 +69,7 @@
             <table class="table">
                 <thead class="thead-light">
                     <tr>
-                        <th scope="col">Caudal</th>
+                        <th scope="col">Caudal Lavaplato</th>
                         <th scope="col">Fecha</th>
                     </tr>
                 </thead>
@@ -83,7 +85,7 @@
             <table class="table">
                 <thead class="thead-light">
                     <tr>
-                        <th scope="col">Caudal</th>
+                        <th scope="col">Caudal Ducha</th>
                         <th scope="col">Fecha</th>
                     </tr>
                 </thead>
@@ -99,7 +101,7 @@
             <table class="table">
                 <thead class="thead-light">
                     <tr>
-                        <th scope="col">Caudal</th>
+                        <th scope="col">Caudal lavamanos</th>
                         <th scope="col">Fecha</th>
                     </tr>
                 </thead>
@@ -132,29 +134,11 @@
           ?>
                 </tbody>
             </table>
+
             <table class="table">
                 <thead class="thead-light">
                     <tr>
-                        <th scope="col">PH LAVAMANOS</th>
-                        <th scope="col">Fecha</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php 
-            $nodo= "lavamanos"; 
-            $var = "proximidad";
-            $token ="BBFF-MuthHA0em5NagYaaZbFscldqQoLXU7";
-            llamarAPI($nodo,$var,$token);
-          ?>
-                </tbody>
-            </table>
-        </div>
-<!-- aqui hay otra tabla-->
-        <div>
-            <table class="table">
-                <thead class="thead-light">
-                    <tr>
-                        <th scope="col">PH</th>
+                        <th scope="col">Proximidad Ducha</th>
                         <th scope="col">Fecha</th>
                     </tr>
                 </thead>
@@ -167,10 +151,11 @@
           ?>
                 </tbody>
             </table>
+
             <table class="table">
                 <thead class="thead-light">
                     <tr>
-                        <th scope="col">PH LAVAMANOS</th>
+                        <th scope="col">Proximidad Lavamanos</th>
                         <th scope="col">Fecha</th>
                     </tr>
                 </thead>
@@ -183,35 +168,92 @@
           ?>
                 </tbody>
             </table>
+        </div>
+        <!-- aqui hay otra tabla-->
+        <div>
             <table class="table">
                 <thead class="thead-light">
                     <tr>
-                        <th scope="col">PH</th>
+                        <th scope="col">PH Lavaplatos</th>
+                        <th scope="col">Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  
+                    $nodo= "lavaplatos"; 
+                    $var = "ph";
+                    $token ="BBFF-X5hI0odQkY8bPyWQQgDl7mKSJNQN4D";
+                    llamarAPI($nodo,$var,$token);  
+   ?>
+                </tbody>
+            </table>
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">PH Ducha</th>
+                        <th scope="col">Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php   
+                    $nodo= "ducha"; 
+                    $var = "ph";
+                    $token ="BBFF-6Ez72888PWNL7SIs3xe2RWrOZlDuVc";
+                    llamarAPI($nodo,$var,$token);  
+   ?>
+                </tbody>
+            </table>
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">PH Lavamanos</th>
                         <th scope="col">Fecha</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php 
-            $var= "ph";
+            $nodo= "lavamanos"; 
+            $var = "ph";
+            $token ="BBFF-MuthHA0em5NagYaaZbFscldqQoLXU7";
             llamarAPI($nodo,$var,$token);
           ?>
                 </tbody>
             </table>
         </div>
-
-        <div >
-            <h2>Alerta<br> PH</h2>
-        <div id="circulo1">
-        <?php 
-                $var= "alertaph";
+        <div>
+            <h2>Alerta<br> Caudal lavaplatos</h2>
+            <div id="circulo1" class="c1">
+                <?php 
+                 $nodo= "lavaplatos"; 
+                 $var= "alertacaudal";
+                 $token ="BBFF-X5hI0odQkY8bPyWQQgDl7mKSJNQN4D";
                 llamarAPI($nodo,$var,$token);                     
-        ?>         
-            </script>
-        </div>
-        </div>
+                ?>
+            </div>
 
-    </div>
-
+            <h2>Alerta<br> Caudal ducha</h2>
+            <div id="circulo1" class="c2">
+                <?php 
+                 $nodo= "ducha";            
+                 $var= "alertacaudal";
+                 $token ="BBFF-6Ez72888PWNL7SIs3xe2RWrOZlDuVc";
+              
+                llamarAPI($nodo,$var,$token);                     
+                ?>
+            </div>
+            
+            <h2>Alerta<br> Caudal lavamanos</h2>
+            <div id="circulo1" class="c3">
+                <?php 
+                   $nodo= "lavamanos";        
+                   $var= "alertacaudal";           
+                   $token ="BBFF-MuthHA0em5NagYaaZbFscldqQoLXU7";
+               
+                llamarAPI($nodo,$var,$token);                     
+                ?>               
+            </div>           
+        </div>
+        <script src='./nodo.js'></script>
 </body>
 
 </html>

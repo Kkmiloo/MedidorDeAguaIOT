@@ -9,7 +9,9 @@ text-align: center;
 
 }
 
-#circulo {
+
+
+  .circulo1 {
     height: 100px;
     width: 100px;
     display: table-cell;
@@ -20,16 +22,7 @@ text-align: center;
     background: #8CC657;
   }
 
-  #circulo1 {
-    height: 100px;
-    width: 100px;
-    display: table-cell;
-    text-align: center;
-    font-size:36px;
-    vertical-align: middle;
-    border-radius: 50%;
-    background: #8CC657;
-  }
+  
 
   h2{
 
