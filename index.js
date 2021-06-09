@@ -3,11 +3,11 @@ function iniciarSesion(){
     let password = document.getElementById("password");
     const mensajerError = document.getElementById("mensaje_error");
 
-    if(correo.value == "admin@admin.com" && password.value == "admin123"){
+    if(correo.value == "usuario" && password.value == "usuario"){
         console.log("correcto");
         window.open("./seleccion.html", "_self");
     }else{
-        console.log("error");
+        console.log("noooo");
         mensajerError.style.visibility = "visible";
     }
 }

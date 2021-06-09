@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Cuida Tu Vejez</title>
+    <title>Medidor de agua</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -21,7 +21,31 @@
     <?php
  $nodo = $_POST["nodo"];
  $token= $_POST["token"];
- function llamarAPI($nodo,$var,$token){
+ ?>
+
+    <header>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand mb-0 h1" href="seleccion.html">Volver</a>
+            <?php  
+            
+            echo "<h3> </h3>";
+            ?>
+            <p id='nombrePagina'> Medidor de agua</p>
+        </nav>
+    </header>
+
+    <div class="row">
+        <div>
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Caudal</th>
+                        <th scope="col">Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php   
+   function llamarAPI($nodo,$var,$token){
     $url_rest = "https://things.ubidots.com/api/v1.6/devices/$nodo/$var/values?token=$token";//verificar 
     date_default_timezone_set('America/Bogota');
     $curl = curl_init($url_rest);
@@ -51,30 +75,7 @@
         }
     }
  }
- ?>
 
-    <header>
-        <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand mb-0 h1" href="seleccion.html">Volver</a>
-            <?php  
-            
-            echo "<h3> </h3>";
-            ?>
-            <p id='nombrePagina'> CuidaTuVejez</p>
-        </nav>
-    </header>
-
-    <div class="row">
-        <div>
-            <table class="table">
-                <thead class="thead-light">
-                    <tr>
-                        <th scope="col">Caudal</th>
-                        <th scope="col">Fecha</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php   
  $var = "caudal";
  llamarAPI($nodo,$var,$token);  
    ?>
