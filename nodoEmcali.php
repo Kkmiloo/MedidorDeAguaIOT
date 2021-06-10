@@ -20,7 +20,7 @@
 
 <body>
     <?php
- //Método de llamar a la API   
+ //Método de llamar a la API  parecido
  function llamarAPI($nodo,$var,$token){
      //Creo contador
      $cont= 1;
