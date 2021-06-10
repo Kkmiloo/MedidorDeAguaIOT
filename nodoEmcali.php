@@ -48,9 +48,13 @@
     if($var == "alertacaudal" ){
         $j = $result[0];
         $valor = $j -> value;
-        echo "<p id='a$cont'> $valor </p>" ;
-        //Aumente el contador (para organización de tablas)
-        $cont= $cont +1;
+        //Esto es para cambiar el color a rojo
+        if($valor==1){
+            echo "<div id='circulo1' style='background:#FF0000'>$valor </div>";
+        }else{
+            //cambia color a verde
+            echo "<div id='circulo1' style='background:#00FF12'>$valor </div>";
+        }
         
     }else{
         //Llene la tabla con los valores de la variable
@@ -238,17 +242,17 @@
         </div>
         <div>
             <h2>Alerta<br> Caudal lavaplatos</h2>
-            <div id="circulo1" class="c1">
+            
                 <?php 
                  $nodo= "lavaplatos"; 
                  $var= "alertacaudal";
                  $token ="BBFF-X5hI0odQkY8bPyWQQgDl7mKSJNQN4D";
                 llamarAPI($nodo,$var,$token);                     
                 ?>
-            </div>
+            
 
             <h2>Alerta<br> Caudal ducha</h2>
-            <div id="circulo1" class="c2">
+            
                 <?php 
                  $nodo= "ducha";            
                  $var= "alertacaudal";
@@ -256,10 +260,10 @@
               
                 llamarAPI($nodo,$var,$token);                     
                 ?>
-            </div>
+            
             
             <h2>Alerta<br> Caudal lavamanos</h2>
-            <div id="circulo1" class="c3">
+            
                 <?php 
                    $nodo= "lavamanos";        
                    $var= "alertacaudal";           
@@ -267,7 +271,7 @@
                
                 llamarAPI($nodo,$var,$token);                     
                 ?>               
-            </div>           
+                    
         </div>
         <script src='./nodo.js'></script>
 </body>

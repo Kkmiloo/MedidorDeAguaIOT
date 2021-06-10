@@ -1,4 +1,4 @@
-<!--PÁGINA QUE SE LE MUESTRA AL USUARIO CUANDO SELECCIONA UN DISPOSITIVO-->
+<!--PÁGINA QUE SE LE MUESTRA AL RESIDENTE CUANDO SELECCIONA UN DISPOSITIVO-->
 <html>
 
 <head>
@@ -49,59 +49,65 @@
                 </thead>
                 <tbody>
                     <?php   
-                            //Método que llama a la API
-    //Envio nodo, variable y el token correspondiente
-   function llamarAPI($nodo,$var,$token){
-    $url_rest = "https://things.ubidots.com/api/v1.6/devices/$nodo/$var/values?token=$token";//verificar 
-    //Cambio zona horaria
-    date_default_timezone_set('America/Bogota');
-    //Inicio la conexión
-    $curl = curl_init($url_rest);
-    //Parámetros de conexión, la segunda me indica que puedo guardar los datos en una variable
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    //Guardo en la variable respuesta lo que obtenga de Ubidots
-    $respuesta = curl_exec($curl);
-    //Si no hay datos, cierre la conexión
-    if($respuesta===false){
-    curl_close($curl);
-    die ("Error...");
-    }    
-    //Guarde en la variable resp, la decodificación del json
-    $resp = json_decode($respuesta);   
-    //En el arreglo results guarde la respuesta
-    $result = $resp -> results;
+                                //Método que llama a la API
+        //Envio nodo, variable y el token correspondiente
+    function llamarAPI($nodo,$var,$token){
+        $url_rest = "https://things.ubidots.com/api/v1.6/devices/$nodo/$var/values?token=$token";//verificar 
+        //Cambio zona horaria
+        date_default_timezone_set('America/Bogota');
+        //Inicio la conexión
+        $curl = curl_init($url_rest);
+        //Parámetros de conexión, la segunda me indica que puedo guardar los datos en una variable
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        //Guardo en la variable respuesta lo que obtenga de Ubidots
+        $respuesta = curl_exec($curl);
+        //Si no hay datos, cierre la conexión
+        if($respuesta===false){
+        curl_close($curl);
+        die ("Error...");
+        }    
+        //Guarde en la variable resp, la decodificación del json
+        $resp = json_decode($respuesta);   
+        //En el arreglo results guarde la respuesta
+        $result = $resp -> results;
 
-    //Si una variable se llama alertaPH
-    if($var == "alertaph" ){
-        //J va a obtener el primer valor, es decir, obtenga la última alerta generada
-        $j = $result[0];
-        //Guarde en la variable valor esa alerta
-        $valor = $j -> value;
-        //Coloquela en la tabla
-        echo "<p id='a1'> $valor </p>" ;
-        //Ejecute el script nodo.js, es para el círculo, cambiar color
-        echo "<script src='./nodo.js'></script>";
-    }else{
-        //de resto
-        for ($i=0; $i<10; $i++){
-            //Llene la tabla con los datos que va obteniendo de la variable
-            $j = $result[$i];
+        //Si una variable se llama alertaPH
+        if($var == "alertaph" ){
+            //solo obtengo el primer valor del json, la última alerta generada
+            $j = $result[0];
+            //Guarde en la variable valor esa alerta
             $valor = $j -> value;
-            $time = $j -> timestamp;           
-            $fecha = date('d-m-Y H:i:s',$time/1000);
-            echo "<tr><td>$valor</td><td>$fecha</td></tr>";
-        }
+            
+            //Esto es para cambiar el color a rojo
+            if($valor==1){
+                echo "<div id='circulo1' style='background:#FF0000'>$valor </div>";
+            }else{
+                //cambia color a verde
+                echo "<div id='circulo1' style='background:#00FF12'>$valor </div>";
+            }
+            //Ejecute el script nodo.js, es para el círculo, cambiar color
+            //echo "<script src='./nodo.js'></script>";
+        }else{
+            //de resto
+            for ($i=0; $i<10; $i++){
+                //Llene la tabla con los datos que va obteniendo de la variable
+                $j = $result[$i];
+                $valor = $j -> value;
+                $time = $j -> timestamp;           
+                $fecha = date('d-m-Y H:i:s',$time/1000);
+                echo "<tr><td>$valor</td><td>$fecha</td></tr>";
+            }
     }
  }
 
- //Ejecuto el método llamar a la API para la variable caudal
- $var = "caudal";
- llamarAPI($nodo,$var,$token);  
-   ?>
+        //Ejecuto el método llamar a la API para la variable caudal
+        $var = "caudal";
+        llamarAPI($nodo,$var,$token);  
+        ?>
                 </tbody>
             </table>
         </div>
-    <!--Creo la tabla de proximidad-->
+        <!--Creo la tabla de proximidad-->
         <div>
             <table class="table">
                 <thead class="thead-light">
@@ -139,20 +145,20 @@
             </table>
         </div>
 
-        <div >
+        <div>
             <!--Creo el título de la alerta con su circulo-->
             <h2>Alerta<br> PH</h2>
-        <div id="circulo1">
-        <?php 
+            
+            
+                <?php 
                 $var= "alertaph";
+                
                 //Ejecuto método de llamar a la API con la alerta
                 llamarAPI($nodo,$var,$token);                     
-        ?>         
-            </script>
-        </div>
-        </div>
+        ?>
 
-    </div>
+            
+        </div>
 
 </body>
 
