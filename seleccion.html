@@ -1,26 +1,33 @@
+<!--PAGINA DE SELECCIÓN DE DISPOSITIVOS: DUCHA, LAVAPLATOS, LAVAMANOS-->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Defino código de estilos-->
     <link rel="stylesheet" href="./css/seleccion.css">
-   
+    <!--Título de la página-->
     <title>Medidor de agua</title>
   </head>
   <body>
+    <!--Header-->
     <header>
       <nav class="navbar navbar-light bg-light">
+        <!--Creo el botón para volver a la página anterior-->
           <a class="navbar-brand mb-0 h1" href="./index.php">Volver</a>
           <p id='nombrePagina'> Medidor de agua</p>
       </nav>
   </header>
-
+    <!--Texto que explica que debe seleccionar un dispositivo-->
     <h2 style="text-align: center; padding:20px;">Por favor, selecciona uno de los dispositivos</h2>
+    <!--4 saltos de línea-->
     <br><br><br><br>
+    <!--Todos estos contenedores es para darle el estilo característico a los botones-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">   
     <div class="section_our_solution">
       <div class="row">
+        <!--Define el ancho de los botones-->
         <div class="col-lg-10 col-md-10 col-sm-10">
           <div class="our_solution_category">
             <div class="solution_cards_box sol_card_top_3">
@@ -28,14 +35,20 @@
               <div class="solution_card">
                 <div class="hover_color_bubble"></div>
                 <div class="solu_title">
+                  <!--Título del botón-->
                  <h3>LAVAPLATOS</h3>
                 </div>
                 <div class="solu_description">
-                  <form action="nodo.php" method="POST">                   
+                  <!--Si le da click, vaya a la página nodo.php y ejecute método POST-->
+                  <form action="nodo.php" method="POST"> 
+                    <!--Parte en la que se dice ver el dispositivo-->                  
                     <button class="read_more_btn" type="submit" name="enviar" value="ENVIAR">Ver el dispositivo</button>
+                    <!--Le asigno el nombre al nodo-->
                     <input style="display: none;" type="text" name="nodo" value="lavaplatos"><br>
+                    <!--Le pone la imagen característica-->
                     <img style="float:right; border-radius: 10px;" src="./src/lavaplatos.png"
                     width="200" height="200">
+                    <!--Si le da click, entonces al token le doy el valor del token de lavaplatos-->
                     <input style="display: none;" type="text" name="token" value="BBFF-X5hI0odQkY8bPyWQQgDl7mKSJNQN4D"><br><br>                                                        
                     </form>
                </div>
